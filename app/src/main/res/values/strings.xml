@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TestApp</string>
+    <string name="airplanes">Airplanes</string>
+    <string name="planes">Planes</string>
+    <string name="proposal">Airliner proposal</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+</resources>

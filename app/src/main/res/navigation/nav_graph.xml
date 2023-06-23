@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/planeListFragment">
+
+    <fragment
+        android:id="@+id/planeListFragment"
+        android:name="com.example.testapp.ui.PlaneListFragment"
+        android:label="@string/airplanes"
+        tools:layout="@layout/fragment_plane_list">
+        <action
+            android:id="@+id/action_planeListFragment_to_planeDetailFragment"
+            app:destination="@id/planeDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim">
+            <argument
+                android:name="title"
+                app:argType="string" />
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/planeDetailFragment"
+        android:name="com.example.testapp.ui.PlaneDetailFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_plane_detail">
+        <action
+            android:id="@+id/action_planeDetailFragment_to_planeListFragment"
+            app:destination="@id/planeListFragment"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/planeListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
