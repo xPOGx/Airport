@@ -20,8 +20,21 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@color/black"
-        app:itemTextColor="@color/white"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:itemTextColor="@color/white">
+
+        <!-- TODO: Fix bug with RecycleView and Header-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/nav_drawer_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_drawer" />
+
+
+    </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

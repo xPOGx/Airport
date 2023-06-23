@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.R
 import com.example.testapp.databinding.ListItemBinding
+import com.example.testapp.databinding.ListItemDrawerBinding
 import com.example.testapp.model.Plane
 
 
-class PlaneAdapter(val clickListener: PlaneListener) :
-ListAdapter<Plane, PlaneAdapter.PlaneViewHolder>(DiffCallback) {
+class PlaneDrawerAdapter(val clickListener: PlaneDrawerListener) :
+ListAdapter<Plane, PlaneDrawerAdapter.PlaneDrawerViewHolder>(DiffCallback) {
 
-    class PlaneViewHolder(
-        var binding: ListItemBinding
+    class PlaneDrawerViewHolder(
+        var binding: ListItemDrawerBinding
     ) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(clickListener: PlaneListener, plane: Plane) {
+        fun bind(clickListener: PlaneDrawerListener, plane: Plane) {
             binding.plane = plane
             binding.clickListener = clickListener
         }
@@ -39,33 +40,21 @@ ListAdapter<Plane, PlaneAdapter.PlaneViewHolder>(DiffCallback) {
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaneViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaneDrawerViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return PlaneViewHolder(
-            ListItemBinding.inflate(layoutInflater, parent, false)
+        return PlaneDrawerViewHolder(
+            ListItemDrawerBinding.inflate(layoutInflater, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: PlaneViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PlaneDrawerViewHolder, position: Int) {
         val plane = getItem(position)
         holder.bind(clickListener, plane)
     }
 }
 
-class PlaneListener(val clickListener: (plane: Plane) -> Unit) {
-    fun onClick(plane: Plane, item: ConstraintLayout) {
-
-        val anim = AnimationUtils.loadAnimation(item.context, R.anim.tap)
-        anim.run {
-            duration = 100
-            setAnimationListener(object : AnimationListener {
-                override fun onAnimationStart(animation: Animation) {}
-                override fun onAnimationRepeat(animation: Animation) {}
-                override fun onAnimationEnd(animation: Animation) {
-                    clickListener(plane)
-                }
-            })
-        }
-        item.startAnimation(anim)
+class PlaneDrawerListener(val clickListener: (plane: Plane) -> Unit) {
+    fun onClick(plane: Plane) {
+        clickListener(plane)
     }
 }

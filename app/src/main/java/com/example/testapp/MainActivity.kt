@@ -1,16 +1,30 @@
 package com.example.testapp
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import com.example.testapp.adapter.PlaneAdapter
+import com.example.testapp.adapter.PlaneDrawerAdapter
+import com.example.testapp.adapter.PlaneDrawerListener
+import com.example.testapp.adapter.PlaneListener
 import com.example.testapp.databinding.ActivityMainBinding
+import com.example.testapp.model.PlaneViewModel
+import com.example.testapp.ui.PlaneDetailFragmentDirections
+import com.example.testapp.ui.PlaneListFragment
+import com.example.testapp.ui.PlaneListFragmentDirections
 import com.google.android.material.navigation.NavigationView
+import java.lang.Exception
 
 
 /**
@@ -18,7 +32,8 @@ import com.google.android.material.navigation.NavigationView
  */
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val viewModel: PlaneViewModel by viewModels()
+
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
@@ -27,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        drawerLayout = binding.drawerLayout
         setContentView(binding.root)
 
         val toolbar = binding.appBarMain.toolbar
@@ -34,8 +50,6 @@ class MainActivity : AppCompatActivity() {
         drawerImage.setOnClickListener { manageDrawer() }
 
         setSupportActionBar(toolbar)
-
-        drawerLayout = binding.drawerLayout
 
         val navView: NavigationView = binding.navView
         val header = navView.getHeaderView(0)
@@ -46,15 +60,36 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        setupActionBarWithNavController(this, navController)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        appBarConfiguration = AppBarConfiguration(
-//            navController.graph, drawerLayout
-//        )
+        connectAdapter()
 
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        setupActionBarWithNavController(this, navController)
+    }
+
+    private fun connectAdapter() {
+        if (viewModel.planes.value == null) {
+            viewModel.getPlaneList()
+        }
+
+        val adapterDrawer = PlaneDrawerAdapter(PlaneDrawerListener { plane ->
+            viewModel.onPlaneClicked(plane)
+            manageDrawer()
+            navigationToNextFragment()
+        })
+        adapterDrawer.submitList(viewModel.planes.value)
+        binding.navDrawerRecyclerView.adapter = adapterDrawer
+    }
+
+    private fun navigationToNextFragment() {
+        val action = PlaneListFragmentDirections.actionPlaneListFragmentToPlaneDetailFragment(
+            viewModel.plane.value!!.name
+        )
+        try {
+            navController.navigate(action)
+        } catch (e: Exception) {
+            onSupportNavigateUp()
+            navController.navigate(action)
+        }
+
     }
 
     private fun manageDrawer() {
@@ -64,17 +99,6 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.END)
         }
     }
-
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-//            drawerLayout.closeDrawer(GravityCompat.END)
-//        } else {
-//            drawerLayout.openDrawer(GravityCompat.END)
-//        }
-//
-//        return true
-//    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
