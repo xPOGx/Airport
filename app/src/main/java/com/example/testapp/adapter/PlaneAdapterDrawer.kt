@@ -2,25 +2,22 @@ package com.example.testapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.AnimationUtils
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testapp.R
-import com.example.testapp.databinding.ListItemBinding
 import com.example.testapp.databinding.ListItemDrawerBinding
 import com.example.testapp.model.Plane
 
 
-class PlaneDrawerAdapter(val clickListener: PlaneDrawerListener) :
-ListAdapter<Plane, PlaneDrawerAdapter.PlaneDrawerViewHolder>(DiffCallback) {
+/**
+ * Adapter for [RecyclerView] in Drawer
+ */
+class PlaneDrawerAdapter(private val clickListener: PlaneDrawerListener) :
+    ListAdapter<Plane, PlaneDrawerAdapter.PlaneDrawerViewHolder>(DiffCallback) {
 
     class PlaneDrawerViewHolder(
         var binding: ListItemDrawerBinding
-    ) : RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(clickListener: PlaneDrawerListener, plane: Plane) {
             binding.plane = plane
@@ -53,6 +50,9 @@ ListAdapter<Plane, PlaneDrawerAdapter.PlaneDrawerViewHolder>(DiffCallback) {
     }
 }
 
+/**
+ * Listener which plane item clicked
+ */
 class PlaneDrawerListener(val clickListener: (plane: Plane) -> Unit) {
     fun onClick(plane: Plane) {
         clickListener(plane)
