@@ -1,30 +1,18 @@
 package com.example.testapp
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import com.example.testapp.adapter.PlaneAdapter
 import com.example.testapp.adapter.PlaneDrawerAdapter
 import com.example.testapp.adapter.PlaneDrawerListener
-import com.example.testapp.adapter.PlaneListener
 import com.example.testapp.databinding.ActivityMainBinding
 import com.example.testapp.model.PlaneViewModel
-import com.example.testapp.ui.PlaneDetailFragmentDirections
-import com.example.testapp.ui.PlaneListFragment
 import com.example.testapp.ui.PlaneListFragmentDirections
-import com.google.android.material.navigation.NavigationView
-import java.lang.Exception
 
 
 /**

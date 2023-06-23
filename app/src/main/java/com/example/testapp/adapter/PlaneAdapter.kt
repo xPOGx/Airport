@@ -14,12 +14,12 @@ import com.example.testapp.databinding.ListItemBinding
 import com.example.testapp.model.Plane
 
 
-class PlaneAdapter(val clickListener: PlaneListener) :
-ListAdapter<Plane, PlaneAdapter.PlaneViewHolder>(DiffCallback) {
+class PlaneAdapter(private val clickListener: PlaneListener) :
+    ListAdapter<Plane, PlaneAdapter.PlaneViewHolder>(DiffCallback) {
 
     class PlaneViewHolder(
         var binding: ListItemBinding
-    ) : RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(clickListener: PlaneListener, plane: Plane) {
             binding.plane = plane

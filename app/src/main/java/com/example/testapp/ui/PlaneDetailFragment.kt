@@ -18,9 +18,7 @@ class PlaneDetailFragment : Fragment() {
     private val viewModel: PlaneViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentPlaneDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -30,9 +28,8 @@ class PlaneDetailFragment : Fragment() {
         return binding.root
     }
 
-    fun placeImage(imageView: ImageView) : Int {
-        if (viewModel.plane.value?.imageBody == null)
-            return View.GONE
+    fun placeImage(imageView: ImageView): Int {
+        if (viewModel.plane.value?.imageBody == null) return View.GONE
         imageView.setImageResource(viewModel.plane.value!!.imageBody!!)
 
         return View.VISIBLE
