@@ -51,10 +51,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        val navView: NavigationView = binding.navView
-        val header = navView.getHeaderView(0)
-        val imageClose: ImageView = header.findViewById(R.id.image_view_header)
-        imageClose.setOnClickListener { manageDrawer() }
+        val headerLayout = binding.headerLayoutNavView
+        headerLayout.imageViewHeader.setOnClickListener { manageDrawer() }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
