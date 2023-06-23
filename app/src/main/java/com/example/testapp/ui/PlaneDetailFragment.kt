@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.testapp.databinding.FragmentPlaneDetailBinding
 import com.example.testapp.model.PlaneViewModel
 

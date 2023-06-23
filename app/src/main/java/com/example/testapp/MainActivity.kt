@@ -1,21 +1,12 @@
 package com.example.testapp
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.navigateUp
 import com.example.testapp.databinding.ActivityMainBinding
-import com.example.testapp.model.PlaneViewModel
-import com.example.testapp.ui.PlaneListFragment
-import com.example.testapp.ui.PlaneListFragmentDirections
-import com.google.android.material.navigation.NavigationView
 
 
 /**

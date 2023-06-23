@@ -34,18 +34,14 @@ class PlaneListFragment : Fragment() {
 
         val adapter = PlaneAdapter(PlaneListener { plane ->
             viewModel.onPlaneClicked(plane)
-            makeAction()
+            val action = PlaneListFragmentDirections.actionPlaneListFragmentToPlaneDetailFragment(
+                viewModel.plane.value!!.name
+            )
+            findNavController().navigate(action)
         })
         adapter.submitList(viewModel.planes.value)
         binding.recyclerView.adapter = adapter
 
         return binding.root
-    }
-
-    fun makeAction() {
-        val action = PlaneListFragmentDirections.actionPlaneListFragmentToPlaneDetailFragment(
-            viewModel.plane.value!!.name
-        )
-        findNavController().navigate(action)
     }
 }
