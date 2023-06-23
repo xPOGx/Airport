@@ -14,6 +14,9 @@ import com.example.testapp.databinding.ListItemBinding
 import com.example.testapp.model.Plane
 
 
+/**
+ * Adapter for [RecyclerView] in PlaneListFragment
+ */
 class PlaneAdapter(private val clickListener: PlaneListener) :
     ListAdapter<Plane, PlaneAdapter.PlaneViewHolder>(DiffCallback) {
 
@@ -52,6 +55,9 @@ class PlaneAdapter(private val clickListener: PlaneListener) :
     }
 }
 
+/**
+ * Listener which plane item clicked and animate item before any logic
+ */
 class PlaneListener(val clickListener: (plane: Plane) -> Unit) {
     fun onClick(plane: Plane, item: ConstraintLayout) {
 

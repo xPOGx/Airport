@@ -1,6 +1,7 @@
 package com.example.testapp
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -17,9 +18,11 @@ import com.example.testapp.ui.PlaneListFragmentDirections
 
 /**
  * Main Activity and entry point for the app.
+ * Connects Toolbar and Drawer to activity.
  */
 class MainActivity : AppCompatActivity() {
 
+    // sharedViewModel
     private val viewModel: PlaneViewModel by viewModels()
 
     private lateinit var navController: NavController
@@ -35,11 +38,13 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = binding.appBarMain.toolbar
         val drawerImage = binding.appBarMain.toolbarDrawer
+        // Open Drawer
         drawerImage.setOnClickListener { manageDrawer() }
 
         setSupportActionBar(toolbar)
 
         val headerLayout = binding.headerLayoutNavView
+        // Close Drawer
         headerLayout.imageViewHeader.setOnClickListener { manageDrawer() }
 
         val navHostFragment =
@@ -48,9 +53,29 @@ class MainActivity : AppCompatActivity() {
 
         connectAdapter()
 
+        handleBackButton()
+
         setupActionBarWithNavController(this, navController)
     }
 
+    /**
+     * Back firstly close Drawer, secondly close Fragment and last close activity
+     */
+    private fun handleBackButton() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.closeDrawer(GravityCompat.END)
+                } else {
+                    if (!onSupportNavigateUp()) finish()
+                }
+            }
+        })
+    }
+
+    /**
+     * Add adapter to RecycleView in Drawer
+     */
     private fun connectAdapter() {
         if (viewModel.planes.value == null) {
             viewModel.getPlaneList()
@@ -65,6 +90,9 @@ class MainActivity : AppCompatActivity() {
         binding.navDrawerRecyclerView.adapter = adapterDrawer
     }
 
+    /**
+     * Navigate to PlaneDetailFragment
+     */
     private fun navigationToNextFragment() {
         val action = PlaneListFragmentDirections.actionPlaneListFragmentToPlaneDetailFragment(
             viewModel.plane.value!!.name
@@ -78,6 +106,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Open or Close Drawer
+     */
     private fun manageDrawer() {
         if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
             drawerLayout.closeDrawer(GravityCompat.END)

@@ -14,10 +14,11 @@ import com.example.testapp.databinding.FragmentPlaneListBinding
 import com.example.testapp.model.PlaneViewModel
 
 /**
- * Entry fragment for the app. Displays a [RecyclerView] of planes.
+ * Entry fragment for the app. Displays a [RecyclerView] of plane items.
  */
 class PlaneListFragment : Fragment() {
 
+    // shared ViewModel
     private val viewModel: PlaneViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -26,6 +27,7 @@ class PlaneListFragment : Fragment() {
         // Retrieve and inflate the layout for this fragment
         val binding = FragmentPlaneListBinding.inflate(inflater)
 
+        // Set adapter for RecycleView and fill it with data
         val adapter = PlaneAdapter(PlaneListener { plane ->
             viewModel.onPlaneClicked(plane)
             navigationToNextFragment()
@@ -36,6 +38,9 @@ class PlaneListFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Navigate to [PlaneDetailFragment] and send plane.name as argument for fragment Title
+     */
     private fun navigationToNextFragment() {
         val action = PlaneListFragmentDirections.actionPlaneListFragmentToPlaneDetailFragment(
             viewModel.plane.value!!.name

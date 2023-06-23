@@ -9,6 +9,9 @@ import com.example.testapp.databinding.ListItemDrawerBinding
 import com.example.testapp.model.Plane
 
 
+/**
+ * Adapter for [RecyclerView] in Drawer
+ */
 class PlaneDrawerAdapter(private val clickListener: PlaneDrawerListener) :
     ListAdapter<Plane, PlaneDrawerAdapter.PlaneDrawerViewHolder>(DiffCallback) {
 
@@ -47,6 +50,9 @@ class PlaneDrawerAdapter(private val clickListener: PlaneDrawerListener) :
     }
 }
 
+/**
+ * Listener which plane item clicked
+ */
 class PlaneDrawerListener(val clickListener: (plane: Plane) -> Unit) {
     fun onClick(plane: Plane) {
         clickListener(plane)
