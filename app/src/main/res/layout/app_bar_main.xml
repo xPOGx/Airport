@@ -16,7 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/toolbar"
-            app:popupTheme="@style/Theme.TestApp.PopupOverlay" />
+            app:popupTheme="@style/Theme.TestApp.PopupOverlay" >
+
+        <ImageView
+            android:id="@+id/toolbar_drawer"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:src="@drawable/drawer" />
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
